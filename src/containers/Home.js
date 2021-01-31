@@ -16,9 +16,9 @@ import LoadingButton from "../components/LoadingButton";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 export default function Home() {
-  const { isLoadingSummary, setIsLoadingSummary } = useState(true);
-  const { isLoadingAnswer, setIsLoadingAnswer } = useState(true);
-
+  const [isLoadingSummary, setIsLoadingSummary] = useState(false);
+  const [isLoadingAnswer, setIsLoadingAnswer] = useState(true);
+  const [summary, setSummary] = useState({text: "", reduced_by: 0});
   const { isAuthenticated, userId } = useAppContext();
   // console.log("userId:", userId);
 
@@ -31,18 +31,40 @@ export default function Home() {
     return fields.text.length > 0;
   }
 
-  async function handleSubmitText() {}
+  function handleSubmitTextForm(event) {
+    event.preventDefault();
+    handleSubmitText()
+  }
+
+  async function handleSubmitText(){
+    setIsLoadingSummary(true);
+    const article = {
+      text: fields.text
+    }
+    try{
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/article`,
+        article
+      );
+      console.log(res.data);
+      setSummary({text: res.data.text, reduced_by: res.data.reduced_by});
+    } catch (e) {
+      console.log(e);
+    }
+    fields.text = "";
+    setIsLoadingSummary(false);
+  }
   // todo: should we combine these are determine if input is text or link??
   //   function renderArticleLinkForm() {}
   function renderArticleTextForm() {
     return (
-      <Form onSubmit={handleSubmitText}>
+      <Form onSubmit={handleSubmitTextForm}>
         <Form.Group>
           <Form.Control
             id="text"
             value={fields.text}
             as="textarea"
-            rows={20}
+            rows={15}
             onChange={handleFieldChange}
             style={{ width: "100%" }}
           />
@@ -60,8 +82,17 @@ export default function Home() {
       </Form>
     );
   }
-  function renderSummary() {}
-  console.log("env: ", process.env.REACT_APP_BACKEND_URL);
+
+  function renderSummary() {
+    return(
+      <div>
+        {summary.text}
+        <br/>
+        {`Original text reduced by ${summary.reduced_by}%.`}
+      </div>
+    )
+  }
+
   return (
     <Container>
       <Fade>
@@ -75,7 +106,7 @@ export default function Home() {
         <br />
 
         {renderArticleTextForm()}
-        {isLoadingSummary ? <></> : <>{renderSummary()}</>}
+        {(isLoadingSummary || summary.text.length == 0) ? <></> : <Fade>{renderSummary()}</Fade>}
       </Fade>
     </Container>
   );
