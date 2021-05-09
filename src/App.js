@@ -22,17 +22,18 @@ function App() {
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [username, setUsername] = useState("");
   const [userId, setUserId] = useState("");
-
-  // check for existing session
-  async function loadSession() {
+  console.log("userId:", userId);
+  console.log("username:", username);
+  async function loadUser() {
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/auth/session`
+        `${process.env.REACT_APP_BACKEND_URL}/api/auth/getuser`,
+        { withCredentials: true }
       );
-      if (res.data.session) {
+      if (res.data) {
+        setUsername(res.data.name);
+        setUserId(res.data._id);
         userHasAuthenticated(true);
-        setUsername(res.data.username);
-        setUserId(res.data.userId);
       }
     } catch (e) {
       console.log(e);
@@ -40,14 +41,17 @@ function App() {
   }
 
   useEffect(() => {
-    loadSession();
-    // todo: socketIO
+    loadUser();
   }, [isAuthenticated, userId]);
 
   const history = useHistory();
   var [fields, handleFieldChange] = useFields({
     searchTerm: "",
   });
+
+  const googleLogin = () => {
+    window.open( `${process.env.REACT_APP_BACKEND_URL}/api/auth/google`, "_self");
+  }
 
   async function handleLogout() {
     const res = await axios.get(
@@ -58,7 +62,7 @@ function App() {
     setUsername("");
     setUserId("");
     history.push("/");
-    history.go(0)
+    history.go(0);
   }
 
   function handleSearchSubmit(event) {
@@ -78,9 +82,11 @@ function App() {
           tl;sr
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
+            <NavLink as={Link} to="/summarize">
+              Summarize
+            </NavLink>
             <NavLink as={Link} to="/categories">
               Categories
             </NavLink>
@@ -93,7 +99,7 @@ function App() {
               </>
             ) : (
               <>
-                <NavLink as={Link} to="/signin">
+                <NavLink as={Link} onClick={googleLogin}>
                   Sign In
                 </NavLink>
               </>

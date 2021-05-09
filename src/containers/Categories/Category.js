@@ -11,7 +11,6 @@ export default function Category() {
       <Fade>
         <h1>CATEGORY</h1>
         <h3>UNDER CONSTRUCTION</h3>
-
       </Fade>
     </Container>
   );

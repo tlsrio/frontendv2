@@ -16,8 +16,7 @@ import LoadingButton from "../components/LoadingButton";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
-
-export default function Home() {
+export default function Summarize() {
   const [isLoadingSummary, setIsLoadingSummary] = useState(false);
   const [isLoadingAnswer, setIsLoadingAnswer] = useState(true);
   const [summary, setSummary] = useState({text: "", reduced_by: 0});
@@ -45,7 +44,7 @@ export default function Home() {
     }
     try{
       const res = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/article`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/summarize`,
         article
       );
       console.log(res.data);

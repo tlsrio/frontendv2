@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Form, FormControl, Col, Card } from "react-bootstrap";
+import { Container, Form, FormControl, Col, Card, Button } from "react-bootstrap";
 import LoadingButton from "../components/LoadingButton";
 import { useHistory } from "react-router-dom";
 import { useFields } from "../libs/hooks";
@@ -7,9 +7,10 @@ import { useAppContext } from "../libs/context";
 import axios from "axios";
 import Fade from "react-reveal/Fade";
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 export default function Login() {
+  console.log("url:", `${process.env.REACT_APP_BACKEND_URL}/api/auth/google`);
   const { userHasAuthenticated, setUsername, setUserId } = useAppContext();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -29,10 +30,15 @@ export default function Login() {
       password: fields.password,
     };
     try {
-      const res = await axios.post(
-        `
-      ${process.env.REACT_APP_BACKEND_URL}/api/auth/signin`,
-        user,
+      // const res = await axios.post(
+      //   `
+      // ${process.env.REACT_APP_BACKEND_URL}/api/auth/signin`,
+      //   user,
+      //   { withCredentials: true }
+      // );
+
+      const res = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/auth/login/success`,
         { withCredentials: true }
       );
       console.log(res.data);
@@ -46,6 +52,9 @@ export default function Login() {
       console.error(e);
       setIsLoading(false);
     }
+  }
+  const googleLogin = () => {
+    window.open( `${process.env.REACT_APP_BACKEND_URL}/api/auth/google`, "_self");
   }
 
   return (
@@ -84,7 +93,13 @@ export default function Login() {
               >
                 Sign In
               </LoadingButton>
+
             </Form>
+            <Button
+                onClick={googleLogin}
+              >
+                Login with Google
+              </Button>
           </Card.Body>
         </Card>
       </Fade>
