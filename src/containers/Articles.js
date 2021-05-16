@@ -187,24 +187,23 @@ export default function Articles(query) {
   async function handleDeleteComment(event) {
     event.preventDefault();
     console.log("comment id: ", event.target.id);
-    const confirmed = window.confirm("Delete this comment?");
-    if (!confirmed) {
-      return;
-      // }
-      // try {
-      //   const res = await axios.del(
-      //     `${process.env.REACT_APP_BACKEND_URL}/api/comments/event`,
-      //     newComment
-      //   );
-      //   console.log(res);
-      // } catch (e) {
-      //   console.log(e);
-      //   setIsLoadingComments(false);
-      // }
-      // fields.text = "";
-      // loadComments(currentArticle);
-      // return;
+    // const confirmed = window.confirm("Delete this comment?");
+    // if (!confirmed) {
+    //   return;
+    // }
+    setIsLoadingComments(true);
+    try {
+      const res = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/api/comments/${event.target.id}`
+      );
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+      setIsLoadingComments(false);
     }
+    fields.text = "";
+    loadComments(currentArticle);
+    return;
   }
 
   function renderModal() {
@@ -228,7 +227,14 @@ export default function Articles(query) {
                       </Col>
                       <Col>
                         {comment.userId === userId ? (
-                          <Button id={comment._id} onClick={handleDeleteComment}>Delete</Button>
+                          <Button
+                            id={comment._id}
+                            onClick={handleDeleteComment}
+                            variant="outline-danger"
+                            size="sm"
+                          >
+                            ✕
+                          </Button>
                         ) : (
                           <></>
                         )}
