@@ -29,7 +29,7 @@ export default function ArticleCard(
       }
     }, [maxHeight]);
     return (
-      <Card.Body
+      <div
         style={styles.cardText}
         ref={ref}
         onClick={() => setExpanded(!expanded)}
@@ -50,7 +50,7 @@ export default function ArticleCard(
             {expanded ? "- Show Less" : "+ Show More"}
           </p>
         </div>
-      </Card.Body>
+      </div>
     );
   };
 
