@@ -25,6 +25,7 @@ function App() {
   console.log("userId:", userId);
   console.log("username:", username);
   async function loadUser() {
+    console.log("loadUser");
     try {
       const res = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/api/auth/getuser`,
@@ -50,8 +51,11 @@ function App() {
   });
 
   const googleLogin = () => {
-    window.open( `${process.env.REACT_APP_BACKEND_URL}/api/auth/google`, "_self");
-  }
+    window.open(
+      `${process.env.REACT_APP_BACKEND_URL}/api/auth/google`,
+      "_self"
+    );
+  };
 
   async function handleLogout() {
     const res = await axios.get(
@@ -92,16 +96,18 @@ function App() {
             </NavLink>
             {isAuthenticated ? (
               <>
-                <NavLink disabled={false} as={Link} to={`/profile/${userId}`}>
+                <NavLink
+                  disabled={false}
+                  as={Link}
+                  to={userId ? `/profile/${userId}` : ``}
+                >
                   Profile
                 </NavLink>
                 <NavLink onClick={handleLogout}>Log Out</NavLink>
               </>
             ) : (
               <>
-                <NavLink as={Link} onClick={googleLogin}>
-                  Sign In
-                </NavLink>
+                <NavLink onClick={googleLogin}>Sign In</NavLink>
               </>
             )}
           </Nav>

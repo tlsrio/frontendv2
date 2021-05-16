@@ -6,9 +6,7 @@ import Home from "./containers/Home";
 import NotFound from "./containers/NotFound";
 import Profile from "./containers/Profile";
 import Search from "./containers/Search";
-import SignIn from "./containers/SignIn";
 import Summarize from "./containers/Summarize";
-
 
 export default function Routes() {
   return (
@@ -16,9 +14,6 @@ export default function Routes() {
       <Route exact path="/">
         <Home />
       </Route>
-      <Route exact path="/signin">
-        <SignIn />
-      </Route>]
       <Route exact path="/categories">
         <Categories />
       </Route>
