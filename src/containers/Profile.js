@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
-import { Container} from "react-bootstrap";
-import Fade from 'react-reveal/Fade';
+import { Container } from "react-bootstrap";
+import Fade from "react-reveal/Fade";
 import axios from "axios";
 import { useAppContext } from "../libs/context";
 
 axios.defaults.withCredentials = true;
 
 export default function Profile() {
-  const { userId, username} = useAppContext();
+  const { userId, username } = useAppContext();
   const { id } = useParams();
   var ownPage;
   if (id === userId) {
