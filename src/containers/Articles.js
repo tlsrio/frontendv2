@@ -67,11 +67,17 @@ export default function Articles(query) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  async function handleFavourite(id) {
+  async function handleFavourite(id, boolFav) {
     console.log("handle favourite: ", id);
+    let path = "";
+    if (boolFav) {
+      path = "addfavourite"
+    } else {
+      path = "removefavourite"
+    }
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/addfavourite/${id}`
+        `${process.env.REACT_APP_BACKEND_URL}/api/${path}/${id}`
       );
       console.log(res);
       loadFavouriteArticles();
@@ -152,13 +158,21 @@ export default function Articles(query) {
   }
 
   useEffect(() => {
-    console.log("useeffect");
     async function onLoad() {
-      await loadArticles();
-      await loadFavouriteArticles();
+      await Promise.all([
+        loadArticles(),
+        loadFavouriteArticles()
+      ]);
     }
     onLoad();
   }, [pageNumber]);
+
+  useEffect(() => {
+    async function onLoad() {
+      await loadFavouriteArticles();
+    }
+    onLoad();
+  });
 
   function loadMore(event) {
     event.preventDefault();

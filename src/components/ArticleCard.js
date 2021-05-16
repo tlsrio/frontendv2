@@ -79,7 +79,7 @@ export default function ArticleCard(
         {favourited ? (
           <Button
             variant="outline-dark"
-            onClick={() => handleFavourite(article._id)}
+            onClick={() => handleFavourite(article._id, false)}
             disabled={!isAuthenticated}
           >
             Unfavourite
@@ -87,7 +87,7 @@ export default function ArticleCard(
         ) : (
           <Button
             variant="outline-dark"
-            onClick={() => handleFavourite(article._id)}
+            onClick={() => handleFavourite(article._id, true)}
             disabled={!isAuthenticated}
           >
             Favourite
