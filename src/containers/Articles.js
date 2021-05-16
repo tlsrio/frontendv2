@@ -2,12 +2,21 @@ import React, { useState, useEffect } from "react";
 import { useAppContext } from "../libs/context";
 import FadeIn from "../components/Fade";
 import Loading from "../components/Loading";
-import { Container, Row, Col, Form, Modal, Toast } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Modal,
+  Toast,
+  Button,
+  ButtonGroup,
+} from "react-bootstrap";
 import axios from "axios";
 import ArticleCard from "../components/ArticleCard";
 import LoadingButton from "../components/LoadingButton";
 import { useFields } from "../libs/hooks";
-import ButterToast, { Cinnamon } from "butter-toast";
+// import ButterToast, { Cinnamon } from "butter-toast";
 
 axios.defaults.withCredentials = true;
 
@@ -68,6 +77,15 @@ export default function Articles(query) {
   const handleShow = () => setShow(true);
 
   async function handleFavourite(id) {
+    // ButterToast.raise({
+    //   content: (
+    //     <Cinnamon.Crisp
+    //       scheme={Cinnamon.Crisp.SCHEME_BLUE}
+    //       content={() => <div>You can put basically anything here.</div>}
+    //       title="ButterToast example"
+    //     />
+    //   ),
+    // });
     console.log("handle favourite: ", id);
     try {
       const res = await axios.get(
@@ -166,6 +184,29 @@ export default function Articles(query) {
     setPageNumber(pageNumber + 1);
   }
 
+  async function handleDeleteComment(event) {
+    event.preventDefault();
+    console.log("comment id: ", event.target.id);
+    const confirmed = window.confirm("Delete this comment?");
+    if (!confirmed) {
+      return;
+      // }
+      // try {
+      //   const res = await axios.del(
+      //     `${process.env.REACT_APP_BACKEND_URL}/api/comments/event`,
+      //     newComment
+      //   );
+      //   console.log(res);
+      // } catch (e) {
+      //   console.log(e);
+      //   setIsLoadingComments(false);
+      // }
+      // fields.text = "";
+      // loadComments(currentArticle);
+      // return;
+    }
+  }
+
   function renderModal() {
     return (
       <Modal show={show} onHide={hideComments} scrollable={true}>
@@ -179,10 +220,18 @@ export default function Articles(query) {
             <FadeIn>
               {comments.length > 0 ? (
                 comments.map((comment) => {
+                  console.log(comment);
                   return (
                     <Row key={comment._id}>
                       <Col sm={10}>
                         <b>{comment.username}:</b> {comment.text}
+                      </Col>
+                      <Col>
+                        {comment.userId === userId ? (
+                          <Button id={comment._id} onClick={handleDeleteComment}>Delete</Button>
+                        ) : (
+                          <></>
+                        )}
                       </Col>
                     </Row>
                   );
@@ -223,7 +272,7 @@ export default function Articles(query) {
   function renderArticles() {
     return (
       <FadeIn>
-        <ButterToast />
+        {/* <ButterToast /> */}
         <Row className="justify-content-md-center">
           {articles.map((article) =>
             ArticleCard(
