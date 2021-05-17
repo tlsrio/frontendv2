@@ -50,6 +50,12 @@
 
 
 
+<!-- ROADMAP -->
+## Roadmap
+
+
+
+
 ### Built With
 
 * [React](https://reactjs.org)
@@ -91,12 +97,6 @@ The app runs at localhost:3000/.
 
 
 
-<!-- ROADMAP -->
-## Roadmap
-
-
-
-
 <!-- CONTRIBUTING -->
 ## Contributing
 
@@ -116,7 +116,6 @@ The app runs at localhost:3000/.
 <!-- CONTACT -->
 ## Contact
 
-Zayaan Moez - [@zayaanmoez](https://github.com/zayaanmoez)
-Malcolm Yeh - [@malcolmyeh](https://github.com/malcolmyeh)
+Zayaan Moez - [@zayaanmoez](https://github.com/zayaanmoez) | Malcolm Yeh - [@malcolmyeh](https://github.com/malcolmyeh)
 
 Project Link: [https://github.com/tlsrio/frontendv2](https://github.com/tlsrio/frontendv2)
