@@ -26,6 +26,7 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
+    <li><a href="#roadmap">Roadmap</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
@@ -34,7 +35,6 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -49,17 +49,16 @@
 <!--[![Product Name Screen Shot][product-screenshot]](https://example.com)-->
 
 
-
-<!-- ROADMAP -->
-## Roadmap
-
-
-
-
 ### Built With
 
 * [React](https://reactjs.org)
 * [React-bootstrap](https://react-bootstrap.github.io)
+
+
+
+<!-- ROADMAP -->
+## Roadmap
+
 
 
 <!-- GETTING STARTED -->
@@ -116,6 +115,7 @@ The app runs at localhost:3000/.
 <!-- CONTACT -->
 ## Contact
 
-Zayaan Moez - [@zayaanmoez](https://github.com/zayaanmoez) | Malcolm Yeh - [@malcolmyeh](https://github.com/malcolmyeh)
+
+Malcolm Yeh - [@malcolmyeh](https://github.com/malcolmyeh) | Zayaan Moez - [@zayaanmoez](https://github.com/zayaanmoez)
 
 Project Link: [https://github.com/tlsrio/frontendv2](https://github.com/tlsrio/frontendv2)
