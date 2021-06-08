@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import { useAppContext } from "../libs/context";
+import React, { useState } from "react";
 import { useFields } from "../libs/hooks";
 import Fade from "react-reveal/Fade";
 import {
@@ -8,10 +6,6 @@ import {
   Row,
   Col,
   Form,
-  Modal,
-  Button,
-  Grid,
-  Tabs, 
   Tab,
   Nav
 } from "react-bootstrap";
@@ -28,8 +22,6 @@ export default function Summarize() {
   const [summary, setSummary] = useState({text: "", reduced_by: 0});
   const [sentiment, setSentiment] = useState({label: "", score: 0});
   const [answer, setAnswer] = useState({answer: "", score: 0});
-  const { isAuthenticated, userId } = useAppContext();
-  // console.log("userId:", userId);
 
   // Form fields
   var [fields, handleFieldChange] = useFields({
@@ -225,12 +217,12 @@ export default function Summarize() {
                         onChange={handleFieldChange}/> </Col>
                     </Row>
                     <LoadingButton type="submit" isLoading={isLoadingAnswer}
-                      disabled={fields.question.length == 0} style={{marginTop: "2vh"}}>
+                      disabled={fields.question.length === 0} style={{marginTop: "2vh"}}>
                       Ask
                     </LoadingButton>
                   </Form>
                   <div style={{marginTop: "3vh"}}>
-                    {(isLoadingAnswer || answer.answer.length == 0 ? <></> : 
+                    {(isLoadingAnswer || answer.answer.length === 0 ? <></> : 
                     <Fade> <p>{answer.answer}</p> <p>Score: {answer.score}</p></Fade>)}
                   </div>
                 </Tab.Pane>
@@ -264,7 +256,7 @@ export default function Summarize() {
         <br />
 
         {renderArticleForm()}
-        {(isLoadingSummary || summary.text.length == 0) ? <></> : <Fade>{renderSummary()}</Fade>}
+        {(isLoadingSummary || summary.text.length === 0) ? <></> : <Fade>{renderSummary()}</Fade>}
       </Fade>
     </Container>
   );

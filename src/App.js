@@ -22,10 +22,7 @@ function App() {
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [username, setUsername] = useState("");
   const [userId, setUserId] = useState("");
-  console.log("userId:", userId);
-  console.log("username:", username);
   async function loadUser() {
-    console.log("loadUser");
     try {
       const res = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}/api/auth/getuser`,

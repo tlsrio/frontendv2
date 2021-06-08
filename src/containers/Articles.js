@@ -8,9 +8,7 @@ import {
   Col,
   Form,
   Modal,
-  Toast,
   Button,
-  ButtonGroup,
 } from "react-bootstrap";
 import axios from "axios";
 import ArticleCard from "../components/ArticleCard";
@@ -26,7 +24,6 @@ var favouriteArticleList = [];
 var currentCategory = "";
 
 export default function Articles(query) {
-  console.log("query:", query);
   const { isAuthenticated, username, userId } = useAppContext();
   const [articles, setArticles] = useState([]);
   const [comments, setComments] = useState([]);
@@ -86,7 +83,6 @@ export default function Articles(query) {
     //     />
     //   ),
     // });
-    console.log("handle favourite: ", id);
     let path = "";
     if (boolFav) {
       path = "addfavourite"
@@ -121,20 +117,19 @@ export default function Articles(query) {
 
   async function loadArticles() {
     try {
-      console.log("loadArticles category:", currentCategory);
-      if (query.category != currentCategory) {
+      var endpoint;
+      if (query.category !== currentCategory) {
         // if category is different, restart query from page 1
         currentCategory = query.category;
         setPageNumber(1);
-        var endpoint = `${process.env.REACT_APP_BACKEND_URL}/api/articles?pageNo=${pageNumber}&size=${numArticlesPerQuery}`;
-        if (currentCategory != "") endpoint += `&category=${currentCategory}`;
+        endpoint = `${process.env.REACT_APP_BACKEND_URL}/api/articles?pageNo=${pageNumber}&size=${numArticlesPerQuery}`;
+        if (currentCategory !== "") endpoint += `&category=${currentCategory}`;
         const res = await axios(endpoint);
         articleList = res.data;
       } else {
         // if the same category, increase page number
-        var endpoint = `${process.env.REACT_APP_BACKEND_URL}/api/articles?pageNo=${pageNumber}&size=${numArticlesPerQuery}`;
-        if (currentCategory != "") endpoint += `&category=${currentCategory}`;
-        console.log("endpoint:", endpoint);
+        endpoint = `${process.env.REACT_APP_BACKEND_URL}/api/articles?pageNo=${pageNumber}&size=${numArticlesPerQuery}`;
+        if (currentCategory !== "") endpoint += `&category=${currentCategory}`;
         const res = await axios(endpoint);
         articleList = articleList.concat(res.data);
       }
@@ -147,9 +142,7 @@ export default function Articles(query) {
   }
 
   async function loadFavouriteArticles() {
-    console.log("loadFavouriteArticles");
     if (isAuthenticated) {
-      console.log("is authenticated!");
       try {
         const res = await axios(
           `${process.env.REACT_APP_BACKEND_URL}/api/favouritearticles/${userId}`
@@ -161,7 +154,6 @@ export default function Articles(query) {
       }
       setFavouriteArticles(favouriteArticleList);
     }
-    console.log("favouritearticles:", favouriteArticles);
   }
 
   // todo: try with state
@@ -177,48 +169,37 @@ export default function Articles(query) {
 
   useEffect(() => {
     async function onLoad() {
-      await Promise.all([
-        loadArticles(),
-        loadFavouriteArticles()
-      ]);
-    }
-    onLoad();
-  }, [pageNumber]);
-
-  useEffect(() => {
-    async function onLoad() {
+      await loadArticles();
       await loadFavouriteArticles();
     }
     onLoad();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageNumber]);
 
   function loadMore(event) {
     event.preventDefault();
-    console.log("loadMore");
     setPageNumber(pageNumber + 1);
   }
 
   async function handleDeleteComment(event) {
     event.preventDefault();
-    console.log("comment id: ", event.target.id);
     const confirmed = window.confirm("Delete this comment?");
     if (!confirmed) {
       return;
-      // }
-      // try {
-      //   const res = await axios.del(
-      //     `${process.env.REACT_APP_BACKEND_URL}/api/comments/event`,
-      //     newComment
-      //   );
-      //   console.log(res);
-      // } catch (e) {
-      //   console.log(e);
-      //   setIsLoadingComments(false);
-      // }
-      // fields.text = "";
-      // loadComments(currentArticle);
-      // return;
     }
+    try {
+      const res = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/api/comments/${event.target.id}`
+      );
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+      setIsLoadingComments(false);
+    }
+    fields.text = "";
+    loadComments(currentArticle);
+    return;
+
   }
 
   function renderModal() {
@@ -234,7 +215,6 @@ export default function Articles(query) {
             <FadeIn>
               {comments.length > 0 ? (
                 comments.map((comment) => {
-                  console.log(comment);
                   return (
                     <Row key={comment._id}>
                       <Col sm={10}>

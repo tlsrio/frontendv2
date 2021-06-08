@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Card, Badge, Button, Row } from "react-bootstrap";
+import { Card, Badge, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const MAX_POSSIBLE_HEIGHT = 500;
@@ -68,7 +68,7 @@ export default function ArticleCard(
             <React.Fragment key={category}>
               <Badge variant="dark" as={Link} to={`/category/${category}`}>
                 {category}
-              </Badge>
+              </Badge>{" "}
             </React.Fragment>
           );
         })}
