@@ -16,11 +16,11 @@ export default function Profile() {
   } else {
     ownPage = false;
   }
-
   return (
     <Container>
       <Fade>
         <h1>{username}</h1>
+        {ownPage ? <>This is your profile page. </> : <></>}
       </Fade>
     </Container>
   );
