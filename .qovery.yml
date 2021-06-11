@@ -1,0 +1,11 @@
+---
+application:
+  name: "frontend"
+  project: "tlsrio"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-frontend"
+  routes:
+  - application_name: "frontend"
+    paths:
+    - "/*"
