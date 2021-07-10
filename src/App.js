@@ -75,6 +75,7 @@ function App() {
       alert("Search cannot be empty. ");
     }
   }
+  console.log("Backend at:", process.env.REACT_APP_BACKEND_URL)
 
   return (
     <>
