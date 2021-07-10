@@ -17,7 +17,7 @@ export default function Categories() {
     if (categoryList.length === 0) {
       try {
         const res = await axios(
-          `${process.env.REACT_APP_BACKEND_URL}/api/categories`
+          `/api/categories`
         );
         categoryList = res.data.categories;
       } catch (e) {

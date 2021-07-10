@@ -58,7 +58,7 @@ export default function Summarize() {
     if(inputType === "link") {
       try {
         const res = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/api/urlToText`,
+          `/api/urlToText`,
           {link: fields.link}
         )
         setText(res.data.text)
@@ -73,13 +73,13 @@ export default function Summarize() {
 
     try{
       const res = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/summarize`,
+        `/api/summarize`,
         article
       );
       setSummary({text: res.data.summary, reduced_by: res.data.reducedBy});
 
       const resSen = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/sentiment`,
+        `/api/sentiment`,
         { text: res.data.summary }
       );
       
@@ -105,7 +105,7 @@ export default function Summarize() {
 
     try{
       const res = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/QA`,
+        `/api/QA`,
         qa
       );
       setAnswer({answer: res.data.answer, score: res.data.score});

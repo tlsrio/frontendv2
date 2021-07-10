@@ -15,7 +15,7 @@ export function useAppContext() {
 //     const [userObject, setUserObject] = useState<any>();
 
 //     useEffect(() => {
-//         axios.get(`${process.env.REACT_APP_BACKEND_URL}/getuser`, { withCredentials: true }).then((res) => {
+//         axios.get(`/getuser`, { withCredentials: true }).then((res) => {
 //             console.log(res);
 //             if (res.data) {
 //                 setUserObject(res.data);

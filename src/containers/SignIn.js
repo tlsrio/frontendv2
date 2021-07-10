@@ -10,7 +10,7 @@
 // // axios.defaults.withCredentials = true;
 
 // export default function Login() {
-//   console.log("url:", `${process.env.REACT_APP_BACKEND_URL}/api/auth/google`);
+//   console.log("url:", `/api/auth/google`);
 //   const { userHasAuthenticated, setUsername, setUserId } = useAppContext();
 
 //   const [isLoading, setIsLoading] = useState(false);
@@ -32,13 +32,13 @@
 //     try {
 //       // const res = await axios.post(
 //       //   `
-//       // ${process.env.REACT_APP_BACKEND_URL}/api/auth/signin`,
+//       // /api/auth/signin`,
 //       //   user,
 //       //   { withCredentials: true }
 //       // );
 
 //       const res = await axios.get(
-//         `${process.env.REACT_APP_BACKEND_URL}/api/auth/login/success`,
+//         `/api/auth/login/success`,
 //         { withCredentials: true }
 //       );
 //       console.log(res.data);
@@ -54,7 +54,7 @@
 //     }
 //   }
 //   const googleLogin = () => {
-//     window.open( `${process.env.REACT_APP_BACKEND_URL}/api/auth/google`, "_self");
+//     window.open( `/api/auth/google`, "_self");
 //   }
 
 //   return (

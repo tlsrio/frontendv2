@@ -25,7 +25,7 @@ function App() {
   async function loadUser() {
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/auth/getuser`,
+        `/api/auth/getuser`,
         { withCredentials: true }
       );
       if (res.data) {
@@ -49,14 +49,14 @@ function App() {
 
   const googleLogin = () => {
     window.open(
-      `${process.env.REACT_APP_BACKEND_URL}/api/auth/google`,
+      `/api/auth/google`,
       "_self"
     );
   };
 
   async function handleLogout() {
     const res = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/api/auth/logout`
+      `/api/auth/logout`
     );
     console.log(res);
     userHasAuthenticated(false);

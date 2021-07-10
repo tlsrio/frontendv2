@@ -53,7 +53,7 @@ export default function Articles(query) {
     };
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/api/comments`,
+        `/api/comments`,
         newComment
       );
       console.log(res);
@@ -91,7 +91,7 @@ export default function Articles(query) {
     }
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/${path}/${id}`
+        `/api/${path}/${id}`
       );
       console.log(res);
       loadFavouriteArticles();
@@ -122,13 +122,13 @@ export default function Articles(query) {
         // if category is different, restart query from page 1
         currentCategory = query.category;
         setPageNumber(1);
-        endpoint = `${process.env.REACT_APP_BACKEND_URL}/api/articles?pageNo=${pageNumber}&size=${numArticlesPerQuery}`;
+        endpoint = `/api/articles?pageNo=${pageNumber}&size=${numArticlesPerQuery}`;
         if (currentCategory !== "") endpoint += `&category=${currentCategory}`;
         const res = await axios(endpoint);
         articleList = res.data;
       } else {
         // if the same category, increase page number
-        endpoint = `${process.env.REACT_APP_BACKEND_URL}/api/articles?pageNo=${pageNumber}&size=${numArticlesPerQuery}`;
+        endpoint = `/api/articles?pageNo=${pageNumber}&size=${numArticlesPerQuery}`;
         if (currentCategory !== "") endpoint += `&category=${currentCategory}`;
         const res = await axios(endpoint);
         articleList = articleList.concat(res.data);
@@ -145,7 +145,7 @@ export default function Articles(query) {
     if (isAuthenticated) {
       try {
         const res = await axios(
-          `${process.env.REACT_APP_BACKEND_URL}/api/favouritearticles/${userId}`
+          `/api/favouritearticles/${userId}`
         );
         favouriteArticleList = res.data;
       } catch (e) {
@@ -160,7 +160,7 @@ export default function Articles(query) {
   async function loadComments(article) {
     setIsLoadingComments(true);
     const res = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/api/comments?articleId=${article._id}`
+      `/api/comments?articleId=${article._id}`
     );
     commentList = res.data;
     setComments(commentList);
@@ -189,7 +189,7 @@ export default function Articles(query) {
     }
     try {
       const res = await axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/api/comments/${event.target.id}`
+        `/api/comments/${event.target.id}`
       );
       console.log(res);
     } catch (e) {
