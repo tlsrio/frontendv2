@@ -57,11 +57,13 @@ export default function ArticleCard(
   // TODO: why is article._id duplicate? need to remove math.random
   return (
     <Card style={styles.card} key={article._id + Math.random()}>
-      <Card.Img
-        variant="top"
-        src={article.picture}
-        style={{ width: "350px", height: "275px" }}
-      />
+      <a href={article.link}>
+        <Card.Img
+          variant="top"
+          src={article.image}
+          style={{ width: "350px", height: "275px", "object-fit": "cover"}}
+        />
+      </a>
       <Card.Body>
         {article.categories.map((category) => {
           return (
